@@ -70,40 +70,33 @@ class JadwalPelajaranController extends Controller
 
     // ✏️ Update
     public function update(Request $request, $id)
-    {
-        $jadwal = JadwalPelajaran::find($id);
+{
+    $jadwal = JadwalPelajaran::find($id);
+    if (!$jadwal) return response()->json(['message' => 'Not Found'], 404);
 
-        if (!$jadwal) {
-            return response()->json([
-                'message' => 'Data tidak ditemukan',
-                'status_code' => 404
-            ]);
-        }
+    $validator = Validator::make($request->all(), [
+        'kelas_id' => 'required|exists:kelas,id',
+        'mapel_id' => 'required|exists:mapel,id',
+        'hari' => 'required|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu',
+        'jam_mulai' => 'required|date_format:H:i',
+        'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
+    ]);
 
-        $validator = Validator::make($request->all(), [
-            'kelas_id' => 'sometimes|exists:kelas,id',
-            'mapel_id' => 'sometimes|exists:mapel,id',
-            'hari' => 'sometimes|in:Senin,Selasa,Rabu,Kamis,Jumat,Sabtu',
-            'jam_mulai' => 'sometimes|date_format:H:i',
-            'jam_selesai' => 'sometimes|date_format:H:i|after:jam_mulai'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Validasi gagal',
-                'status_code' => 422,
-                'errors' => $validator->errors()
-            ]);
-        }
-
-        $jadwal->update($validator->validated());
-
+    if ($validator->fails()) {
         return response()->json([
-            'message' => 'Jadwal berhasil diperbarui',
-            'status_code' => 200,
-            'data' => $jadwal->load('kelas', 'mapel')
-        ]);
+            'message' => 'Validation Failed',
+            'errors' => $validator->errors(),
+        ], 422);
     }
+
+    $jadwal->update($validator->validated());
+
+    return response()->json([
+        'message' => 'Jadwal berhasil diperbarui',
+        'data' => $jadwal->load('kelas', 'mapel'),
+    ]);
+}
+
 
     // 🗑️ Hapus
     public function destroy($id)

@@ -19,6 +19,9 @@ class JadwalPelajaran extends Model
         'jam_selesai',
     ];
 
+    // ✅ Muat otomatis relasi saat query
+    protected $with = ['kelas', 'mapel'];
+
     // 🔁 Relasi ke Kelas
     public function kelas()
     {
