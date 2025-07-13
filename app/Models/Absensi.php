@@ -19,6 +19,7 @@ class Absensi extends Model
         'foto',
         'latitude',
         'longitude',
+        'alamat',
     ];
 
     /**

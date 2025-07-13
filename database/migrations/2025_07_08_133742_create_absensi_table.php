@@ -22,6 +22,7 @@ return new class extends Migration
             // 🗺️ Tambahan lokasi (Google Maps)
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
+            $table->string('alamat')->nullable(); 
 
             $table->timestamps();
         });

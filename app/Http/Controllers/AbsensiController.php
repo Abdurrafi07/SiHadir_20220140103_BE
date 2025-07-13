@@ -29,6 +29,7 @@ class AbsensiController extends Controller
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
+            'alamat' => 'nullable|string|max:255',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -64,6 +65,7 @@ class AbsensiController extends Controller
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
+            'alamat' => 'nullable|string|max:255',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -105,6 +107,7 @@ class AbsensiController extends Controller
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'latitude' => 'nullable|numeric',
             'longitude' => 'nullable|numeric',
+            'alamat' => 'nullable|string|max:255',
         ]);
 
         // 🖼️ Simpan 1 foto jika ada
@@ -122,6 +125,7 @@ class AbsensiController extends Controller
                 'foto' => $validated['foto'] ?? null,
                 'latitude' => $validated['latitude'] ?? null,
                 'longitude' => $validated['longitude'] ?? null,
+                'alamat' => $validated['alamat'] ?? null, 
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
