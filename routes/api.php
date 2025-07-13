@@ -1,18 +1,16 @@
 <?php
 
-use App\Http\Controllers\AnakController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\IndukController;
-use App\Http\Controllers\PostingJualController;
-use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\RoleController;
 
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\JadwalGuruController;
 
-use App\Models\Induk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,15 +49,19 @@ Route::middleware(['auth:api', 'role:admin'])->group(function () {
     Route::delete('admin/guru/{id}', [UserController::class, 'destroy']);
 
     // Route Jadwal Pelajaran
-    Route::get('admin/jadwal', [\App\Http\Controllers\JadwalPelajaranController::class, 'index']);
-    Route::post('admin/jadwal', [\App\Http\Controllers\JadwalPelajaranController::class, 'store']);
-    Route::get('admin/jadwal/{id}', [\App\Http\Controllers\JadwalPelajaranController::class, 'show']);
-    Route::put('admin/jadwal/{id}', [\App\Http\Controllers\JadwalPelajaranController::class, 'update']);
-    Route::delete('admin/jadwal/{id}', [\App\Http\Controllers\JadwalPelajaranController::class, 'destroy']);
-
+    Route::get('admin/jadwal', [JadwalPelajaranController::class, 'index']);
+    Route::post('admin/jadwal', [JadwalPelajaranController::class, 'store']);
+    Route::get('admin/jadwal/{id}', [JadwalPelajaranController::class, 'show']);
+    Route::put('admin/jadwal/{id}', [JadwalPelajaranController::class, 'update']);
+    Route::delete('admin/jadwal/{id}', [JadwalPelajaranController::class, 'destroy']);
+    
 });
 
 Route::middleware(['auth:api', 'role:guru'])->group(function () {
-    Route::post('guru/absensi', [AbsensiController::class, 'store']);
-    Route::get('guru/absensi', [AbsensiController::class, 'index']); // nanti bisa pakai filter bulan/kelas
+    Route::get('absensi', [AbsensiController::class, 'index']);
+    Route::post('absensi', [AbsensiController::class, 'store']);
+    Route::get('absensi/{id}', [AbsensiController::class, 'show']);
+    Route::put('absensi/{id}', [AbsensiController::class, 'update']);
+    Route::post('absensi/massal', [AbsensiController::class, 'storeMassal']);
+    Route::get('jadwal/guru', [JadwalGuruController::class, 'index']);
 });

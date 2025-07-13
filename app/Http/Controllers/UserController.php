@@ -47,7 +47,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:6',
-            'kelas_id' => 'nullable|exists:kelas,id'
+            'id_kelas' => 'nullable|exists:kelas,id'
         ]);
 
         if ($validator->fails()) {
@@ -63,7 +63,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role_id' => 2, // 2 adalah ID untuk guru
-            'id_kelas' => $request->kelas_id
+            'id_kelas' => $request->id_kelas
         ]);
 
         return response()->json([
@@ -117,7 +117,7 @@ class UserController extends Controller
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|email|unique:users,email,' . $id,
             'password' => 'nullable|string|min:6',
-            'kelas_id' => 'nullable|exists:kelas,id'
+            'id_kelas' => 'nullable|exists:kelas,id'
         ]);
 
         if ($validator->fails()) {
@@ -132,7 +132,7 @@ class UserController extends Controller
             'name' => $request->name ?? $user->name,
             'email' => $request->email ?? $user->email,
             'password' => $request->password ? Hash::make($request->password) : $user->password,
-            'id_kelas' => $request->kelas_id ?? $user->id_kelas
+            'id_kelas' => $request->id_kelas ?? $user->id_kelas
         ]);
 
         return response()->json([
