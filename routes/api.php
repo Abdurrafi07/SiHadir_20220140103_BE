@@ -1,16 +1,14 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-
 use App\Http\Controllers\RoleController;
-
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\JadwalGuruController;
-
+use App\Http\Controllers\JadwalPelajaranController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
