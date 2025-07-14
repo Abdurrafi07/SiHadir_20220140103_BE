@@ -60,6 +60,7 @@ Route::middleware(['auth:api', 'role:guru'])->group(function () {
     Route::post('absensi', [AbsensiController::class, 'store']);
     Route::get('absensi/{id}', [AbsensiController::class, 'show']);
     Route::put('absensi/{id}', [AbsensiController::class, 'update']);
+    Route::delete('/absensi/{id}', [AbsensiController::class, 'destroy']);
     Route::post('absensi/massal', [AbsensiController::class, 'storeMassal']);
     Route::get('jadwal/guru', [JadwalGuruController::class, 'index']);
 });
